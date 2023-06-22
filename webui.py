@@ -24,7 +24,10 @@ from modules import paths, timer, import_hook, errors  # noqa: F401
 
 startup_timer = timer.Timer()
 
-import torch
+import torch, gc
+gc.collect()
+torch.cuda.empty_cache()
+
 import pytorch_lightning   # noqa: F401 # pytorch_lightning should be imported after torch, but it re-enables warnings on import so import once to disable them
 warnings.filterwarnings(action="ignore", category=DeprecationWarning, module="pytorch_lightning")
 warnings.filterwarnings(action="ignore", category=UserWarning, module="torchvision")
